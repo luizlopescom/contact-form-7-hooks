@@ -151,4 +151,44 @@ add_filter('wpcf7_validation_error', function($error, $name, $cf7) {
 });
 ```
 
+## Manual Functions
 
+```php
+/**
+ * Contact form 7 remove span
+ *
+ * NOT TESTED
+ */
+add_filter('wpcf7_form_elements', function($content) {
+    $content = preg_replace('/<(span).*?class="\s*(?:.*\s)?wpcf7-form-control-wrap(?:\s[^"]+)?\s*"[^\>]*>(.*)<\/\1>/i', '\2', $content);
+
+    $content = str_replace('<br />', '', $content);
+        
+    return $content;
+});
+```
+
+```php
+/*
+ * Disable CF7 Refill
+ * useful when cache is enabled
+ */
+function branode_disable_wpcf7_refill() {
+	global $wp_scripts;
+	$handle      = 'contact-form-7';
+	$object_name = 'wpcf7';
+	$data        = $wp_scripts->get_data( $handle, 'data' );
+	if ( ! empty( $data ) ) {
+		if ( ! is_array( $data ) ) {
+			$data = json_decode( str_replace( 'var ' . $object_name . ' = ', '', substr( $data, 0, - 1 ) ), true );
+		}
+		foreach ( $data as $key => $value ) {
+			$localized_data[ $key ] = $value;
+		}
+		unset($localized_data['cached']);
+		$wp_scripts->add_data( $handle, 'data', '' );
+		wp_localize_script( $handle, $object_name, $localized_data );
+	}
+}
+add_action( 'wpcf7_enqueue_scripts', 'branode_disable_wpcf7_refill' );
+```
