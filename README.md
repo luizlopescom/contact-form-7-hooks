@@ -4,7 +4,7 @@ Here you can find some [Contact Form 7](https://wordpress.org/plugins/contact-fo
 
 ## Filters
 
-- Stop loading the JavaScript and CSS stylesheet on all pages ([Reference](https://contactform7.com/loading-javascript-and-stylesheet-only-when-it-is-necessary/)). If you want to lazy load CF7 assets visit [Lazy CF7 Assets](https://github.com/luizlopescom/lazy-cf7-assets) repository.
+- Stop loading the JavaScript and CSS stylesheet on all pages ([Reference](https://contactform7.com/loading-javascript-and-stylesheet-only-when-it-is-necessary/)). If you want to lazy load CF7 assets, visit [Lazy CF7 Assets](https://github.com/luizlopescom/lazy-cf7-assets) repository.
 
 ```php
 /**
