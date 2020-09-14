@@ -1,4 +1,4 @@
-# Contact Form 7 Hooks
+# Contact Form 7 Hooks, functions and JS Scripts
 
 Here you can find some [Contact Form 7](https://wordpress.org/plugins/contact-form-7/) actions and filters (hooks) available for use. The last used version is 4.2.1.
 
@@ -191,4 +191,24 @@ function branode_disable_wpcf7_refill() {
 	}
 }
 add_action( 'wpcf7_enqueue_scripts', 'branode_disable_wpcf7_refill' );
+```
+
+## Scripts
+```javascript
+/*
+ * DOM Events
+ * Run scripts on form submit
+ * Reference: https://contactform7.com/dom-events/
+ */
+document.addEventListener( 'wpcf7mailsent', function( event ) { //Use mailsent instead of submit to prevent false positives
+  if ( '123' == event.detail.contactFormId ) { //CF7 form ID - append as many forms as you need changing the ID
+	//Generic example
+	alert( "The contact form ID is 123." );
+	
+	//GTM Google Tag Manager Event example
+	dataLayer.push({
+		'event': 'Success' //event name
+	});
+  }
+}, false );
 ```
