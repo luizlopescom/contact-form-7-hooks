@@ -4,6 +4,22 @@ Here you can find some [Contact Form 7](https://wordpress.org/plugins/contact-fo
 
 ## Filters
 
+- Stop loading the JavaScript and CSS stylesheet on all pages [Reference](https://contactform7.com/loading-javascript-and-stylesheet-only-when-it-is-necessary/)
+If you want to lazy load CF7 assets visit [Lazy CF7 Assets](https://github.com/luizlopescom/lazy-cf7-assets) repo.
+
+```php
+/**
+ * wp-config
+ */
+define( 'WPCF7_LOAD_JS', false );
+define( 'WPCF7_LOAD_CSS', false );
+/**
+ * functions.php
+ */
+add_filter( 'wpcf7_load_js', '__return_false' );
+add_filter( 'wpcf7_load_css', '__return_false' );
+```
+
 - `wpcf7_contact_form_default_pack`
 
 ```php
@@ -194,6 +210,9 @@ add_action( 'wpcf7_enqueue_scripts', 'branode_disable_wpcf7_refill' );
 ```
 
 ## Scripts
+
+- DOM Events on form submit
+
 ```javascript
 /*
  * DOM Events
@@ -205,9 +224,9 @@ document.addEventListener( 'wpcf7mailsent', function( event ) { //Use mailsent i
 	//Generic example
 	alert( "The contact form ID is 123." );
 	
-	//GTM Google Tag Manager Event example
+	//GTM - Google Tag Manager Event example
 	dataLayer.push({
-		'event': 'Success' //event name
+		'event': 'Success' //your event name
 	});
   }
 }, false );
